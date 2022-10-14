@@ -75,6 +75,16 @@ namespace SimpleSocketClient {
 
         }
 
+        private void button_genera_Click(object sender, EventArgs e) {
+            Random rnd = new Random();
+            if (Int32.TryParse(label_max.Text, out int a) && Int32.TryParse(label_min.Text, out a)) {
+                textBox_invio.Text = rnd.Next(Int32.Parse(label_min.Text), Int32.Parse(label_max.Text)).ToString();
+            }
+            else {
+                MessageBox.Show("Connessione non ancora stabilita", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e) {
             int invio;
             if (textBox_invio.Text != null && Int32.TryParse(textBox_invio.Text, out invio) && int.Parse(textBox_invio.Text) < max && int.Parse(textBox_invio.Text) > min) {
@@ -90,8 +100,8 @@ namespace SimpleSocketClient {
             }
             else {
                 MessageBox.Show("Input errato", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                textBox_invio.Text = null;
             }
+            textBox_invio.Text = null;
         }
     }
 }
