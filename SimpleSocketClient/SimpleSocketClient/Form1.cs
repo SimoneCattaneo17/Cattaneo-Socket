@@ -43,13 +43,15 @@ namespace SimpleSocketClient {
                     Console.WriteLine("Socket connected to {0}",
                         f1.socket.RemoteEndPoint.ToString());
 
-                    f1.min = f1.socket.Receive(f1.bytes);
-                    f1.min = int.Parse(Encoding.ASCII.GetString(f1.bytes, 0, f1.min));
-                    Console.WriteLine("min: " + f1.min);
+                    string temp;
+                    int a;
 
-                    f1.max = f1.socket.Receive(f1.bytes);
-                    f1.max = int.Parse(Encoding.ASCII.GetString(f1.bytes, 0, f1.max));
-                    Console.WriteLine("max: " + f1.max);
+                    a = f1.socket.Receive(f1.bytes);
+                    temp = Encoding.ASCII.GetString(f1.bytes, 0, a);
+                    string[] arr = temp.Split(';');
+
+                    f1.min = int.Parse(arr[0]);
+                    f1.max = int.Parse(arr[1]);
 
                     f1.label_min.Text = f1.min.ToString();
                     f1.label_max.Text = f1.max.ToString();
