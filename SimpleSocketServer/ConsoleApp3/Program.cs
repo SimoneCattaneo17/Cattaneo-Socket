@@ -33,16 +33,11 @@ public class SynchronousSocketListener
                 {
                     Random random = new Random();
                     int max = random.Next(256);
-                    max.ToString();
                     int min = random.Next(max);
-                    min.ToString();
                     Console.WriteLine("min:" + min);
                     Console.WriteLine("max:" + max);
 
-                    byte[] message = Encoding.ASCII.GetBytes(min.ToString());
-                    handler.Send(message);
-
-                    message = Encoding.ASCII.GetBytes(max.ToString());
+                    byte[] message = Encoding.ASCII.GetBytes(min.ToString() + ";" + max.ToString());
                     handler.Send(message);
 
                     int bytesRec = handler.Receive(bytes);

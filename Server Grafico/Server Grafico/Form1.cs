@@ -75,7 +75,7 @@ namespace Server_Grafico {
                             //f.label8.Text = max.ToString();
 
 
-                            byte[] message = Encoding.ASCII.GetBytes(min.ToString() + ";" + max);
+                            byte[] message = Encoding.ASCII.GetBytes(min.ToString() + ";" + max.ToString());
                             handler.Send(message);
 
                             int bytesRec = handler.Receive(f.bytes);
