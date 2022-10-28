@@ -89,7 +89,7 @@ namespace SimpleSocketClient {
 
         private void button1_Click(object sender, EventArgs e) {
             int invio;
-            if (textBox_invio.Text != null && Int32.TryParse(textBox_invio.Text, out invio) && int.Parse(textBox_invio.Text) < max && int.Parse(textBox_invio.Text) > min) {
+            if (textBox_invio.Text != null && Int32.TryParse(textBox_invio.Text, out invio) && int.Parse(textBox_invio.Text) <= max && int.Parse(textBox_invio.Text) >= min) {
                 byte[] msg = Encoding.ASCII.GetBytes(textBox_invio.Text + ".");
 
                 int bytesSent = socket.Send(msg);

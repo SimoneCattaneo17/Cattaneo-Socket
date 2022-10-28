@@ -16,6 +16,11 @@ namespace Server_Grafico {
 
         public static string data = null;
         byte[] bytes = new Byte[1024];
+        public bool end = false;
+        int min = 0, max = 0;
+
+        Socket listener;
+        Socket handler;
 
         IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1");
 
@@ -29,10 +34,14 @@ namespace Server_Grafico {
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            Thread t1 = new Thread(o.operazione);
+            if (listener != null) {
+                listener.Close();
+                listener = null;
+            }
+            Thread t1 = new Thread(opera);
             if (btn == false) {
                 btn = true;
-                o.end = false;
+                end = false;
                 button1.Text = "Chiudi connessione";
                 label2.Text = "Operativo";
 
@@ -40,14 +49,55 @@ namespace Server_Grafico {
             }
             else {
                 btn = false;
-                o.end = true;
+                end = true;
                 button1.Text = "Apri connessione";
                 label2.Text = "Non operativo";
-
-                t1.Abort();
+                min = 0;
+                max = 0;
             }
         }
 
+        private void opera() {
+            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 5000);
+
+            listener = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            try {
+                listener.Bind(localEndPoint);
+                listener.Listen(10);
+
+                while (!end) {
+                    handler = listener.Accept();
+                    data = null;
+
+                    while (!end) {
+                        Random random = new Random();
+                        max = random.Next(256);
+                        min = random.Next(max);
+
+                        byte[] message = Encoding.ASCII.GetBytes(min.ToString() + ";" + max.ToString());
+                        handler.Send(message);
+
+                        int bytesRec = handler.Receive(bytes);
+                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                        if (data.IndexOf(".") > -1) {
+                            break;
+                        }
+                    }
+
+                    Console.WriteLine(data);
+
+                    handler.Shutdown(SocketShutdown.Both);
+                    handler.Close();
+                }
+            }
+            catch (Exception exception) {
+                Console.WriteLine("OPERA:"+exception.ToString());
+            }
+
+        }
+
+        //probabilmente inutile
         public class operazioni {
             public Form1 f { get; set; }
             public bool end = false;
@@ -71,8 +121,8 @@ namespace Server_Grafico {
                             Random random = new Random();
                             int max = random.Next(256);
                             int min = random.Next(max);
-                            //f.label6.Text = min.ToString();
-                            //f.label8.Text = max.ToString();
+                            f.label6.Text = min.ToString();
+                            f.label8.Text = max.ToString();
 
 
                             byte[] message = Encoding.ASCII.GetBytes(min.ToString() + ";" + max.ToString());
@@ -99,6 +149,13 @@ namespace Server_Grafico {
                     Console.WriteLine(exception.ToString());
                 }
             }
+        }
+
+        //togliere il timer
+        private void timer1_Tick(object sender, EventArgs e) {
+            label6.Text = min.ToString();
+            label8.Text = max.ToString();
+            label7.Text = data;
         }
 
         private void label7_Click(object sender, EventArgs e) {
