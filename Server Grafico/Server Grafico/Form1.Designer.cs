@@ -1,5 +1,5 @@
 ﻿namespace Server_Grafico {
-    partial class Form1 {
+    partial class Server {
         /// <summary>
         /// Variabile di progettazione necessaria.
         /// </summary>
@@ -23,7 +23,6 @@
         /// il contenuto del metodo con l'editor di codice.
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -33,7 +32,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // button1
@@ -94,7 +92,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 112);
+            this.label6.Location = new System.Drawing.Point(21, 112);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 16);
             this.label6.TabIndex = 6;
@@ -103,29 +101,22 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(170, 112);
+            this.label7.Location = new System.Drawing.Point(186, 112);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(10, 16);
             this.label7.TabIndex = 7;
             this.label7.Text = " ";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(320, 112);
+            this.label8.Location = new System.Drawing.Point(340, 112);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(10, 16);
             this.label8.TabIndex = 8;
             this.label8.Text = " ";
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // Form1
+            // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -139,8 +130,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Server";
+            this.Text = "Server";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Server_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,7 +149,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Timer timer1;
     }
 }
 
